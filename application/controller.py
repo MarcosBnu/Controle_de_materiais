@@ -114,8 +114,49 @@ def listar_com():
         for j in nomes_em_json:
             i['usuario']=j['nome_usuario']
     # converter a lista do python para json
-    resposta = jsonify(comentarios_em_json)
-    # PERMITIR resposta para outras pedidos oriundos de outras tecnologias
+    res = jsonify(comentarios_em_json)
+    # PERMITIR res para outras pedidos oriundos de outras tecnologias
+    res.headers.add("Access-Control-Allow-Origin", "*")
+    return res # retornar...
+
+@app.route("/incluir_Comentario", methods=["POST"])
+def incluir_Comentario():
+    # preparar uma resposta otimista
+    resposta_com = jsonify({"resultado": "ok", "detalhes": "ok"})
+    # receber as informações
+    Cadados = request.get_json() 
+    data=datetime.date.today()
+    Cadados["data"]=data
+    Cadados["material"]=Lista_mat[0]
+    Cadados["user"]=np[0]
+    try:  # tentar executar a operação
+        novaCad = comentarios(**Cadados)  # criar a nova pessoa
+        db.session.add(novaCad)  # adicionar no BD
+        db.session.commit()  # efetivar a operação de gravação
+    except Exception as e:  # em caso de erro...
+        # informar mensagem de erro
+        resposta_com = jsonify({"resultado": "erro", "detalhes": str(e)})
+    # adicionar cabeçalho de liberação de origem
+    resposta_com.headers.add("Access-Control-Allow-Origin", "*")
+    return resposta_com  # responder!
+
+@app.route("/cont_del/<int:id_comen>", methods=["DELETE"]) 
+def cont_del(id_comen):
+    resposta = jsonify({"resultado": "ok", "detalhes": "ok"})
+    valor=np[0]#recebe a id do usuario logado
+    delD=comentarios.query.filter_by(idcomentario=id_comen).first()#busca no banco de dados o que voce deseja excluir
+    try:
+        if delD.user==valor:
+            comentarios.query.filter(comentarios.idcomentario == id_comen).delete() # excluir a pessoa do ID informado
+            # confirmar a exclusão
+            db.session.commit()
+        else:
+            resposta = jsonify({"resultado": "erro", "detalhes": "Voce não pode apagar um comentario que não é seu"})
+    except Exception as e:
+        # informar mensagem de erro
+        resposta = jsonify({"resultado":"erro", "detalhes":str(e)})
+        # adicionar cabeçalho de liberação de origem
     resposta.headers.add("Access-Control-Allow-Origin", "*")
-    return resposta # retornar...
+    return resposta # responder!
+
 app.run(debug = True)

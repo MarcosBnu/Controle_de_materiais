@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -18,29 +17,17 @@
 		<div>
 			<div class="fomulario">
 				<div class="pic" id="zoom">
-					<img src="../../imagens/logo.jfif" alt="IMG">
+					<img style="max-width:200px" src="http://localhost:5000/get_cont" alt="IMG">
 				</div>
-				<form onsubmit="return false" enctype="multipart/form-data" id="meuform">
+				<form onsubmit="return false" enctype="multipart/form-data">
 					<span>
-						Cadastrar Material
+						Adicionar comentario
 					</span>
-				  <div id="fontelogin" class="form-group">
-					<input class="form-control" placeholder="Nome do material" id="campoNome">
-				  </div>
-				  <div id="fontelogin" class="form-group">
-					<input class="form-control" type="file" name="capa" id="campoImg">
-				  </div>
-				  <div id="fontelogin" class="form-group">
-					<select class="form-control" name="Status" id="campoStatus">
-					  <option value="Ativo">Ativo</option>
-					  <option value="Desativado">Desativado</option>
-					</select>
-				  </div>
-				  <div id="fontelogin" class="form-group">
-					<input class="form-control" placeholder="Descrição" id="campoDes">
-				  </div>
+				  <div class="mb-3">
+                    <textarea id="textCom" class="form-control" rows="3" placeholder="Comente aqui"></textarea>
+                  </div>
 				  <div>
-					<button id="btIncluirProduto" class="btn btn-outline-success">Cadastrar</button>
+					<button id="btIncluirComentarios" class="btn btn-outline-success">Adicionar</button>
 				  </div>
 					<div style="margin-left:80%; margin-top:-12%" id="zoom">
 						<a href="#"><img src="../../imagens/logout_sair.png" alt="IMG"></a>
@@ -49,9 +36,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="../JS/cadprod.js"></script>
+	<script src="../JS/comentarios.js"></script>
 </body>
 </html>
-
-
-

@@ -31,7 +31,7 @@ $(function() { // quando o documento estiver pronto/carregado
                 '</div>'+
             '</div>';
             // adiciona a linha no corpo da tabela
-            if (mat[i].ativo=="Ativo")
+            if (mat[i].ativo== "Ativo")
              $('#listarmat').append(lin);
         }
     }
@@ -44,6 +44,7 @@ $(function() { // quando o documento estiver pronto/carregado
         // no id do ícone
         var nome_icone = "editar_";
         var id_material = componente_clicado.substring(nome_icone.length);
+        alert(id_material)
         // solicitar a edição da despesa
         $.ajax({
             url: 'http://localhost:5000/listar_comentarios/'+id_material,
