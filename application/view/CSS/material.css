@@ -1,0 +1,18 @@
+body{
+	background: rgb(79,46,196);
+	background: linear-gradient(90deg, rgba(79,46,196,1) 27%, rgba(121,38,159,1) 59%, rgba(9,39,121,1) 100%);
+}
+.fomulario {
+    background: #fff;
+    border-radius: 50px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+.limite {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 15%;
+    width: 70%;
+}
+
