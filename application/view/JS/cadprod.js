@@ -41,7 +41,7 @@ $(function () { // quando o documento estiver pronto/carregado
             if (retorno.resultado == "ok") { // a operação deu certo?
                 // informar resultado de sucesso
                 alert("Sucesso");
-                window.location.href = 'material.html';//recarrega a pagina
+                location.reload();//recarrega a pagina
                 // limpar os campos
                 $("#campoNome").val();
                 $("#campoImg").val()

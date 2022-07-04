@@ -20,7 +20,6 @@ $(function() { // quando o documento estiver pronto/carregado
         while(l){
             n=0
             if(somador_aux){
-                alert("tuts")
                 somador_aux = false
                 for (var i in con){
                     n=n+1
@@ -110,7 +109,7 @@ $(function () { // quando o documento estiver pronto/carregado
             if (retorno.resultado == "ok") { // a operação deu certo?
                 // informar resultado de sucesso
                 alert("Comentario cadastrado com sucesso!");
-                location.reload();//recarrega a pagina
+                window.location.href = 'material.html';//redireciona a pagina
                 // limpar os campos
                 $("#textCom").val();
 
