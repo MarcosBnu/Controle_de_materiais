@@ -65,14 +65,9 @@ def salvar_imagem():
 
 @app.route('/get_image/<int:id_img>')
 def get_image(id_img):
-    mat = db.session.query(materiais).get(id_img)
-    arquivoimg = os.path.join(path, 'Imagens/'+ mat.imagem)
-    return send_file(arquivoimg, mimetype='image/gif')
-
-@app.route('/get_cont')
-def get_cont():
-    l_mat=Lista_mat[0]
-    mat = db.session.query(materiais).get(l_mat)
+    if id_img==9999999999999:
+        id_img=Lista_mat[0]
+    mat = db.session.query(materiais).get(id_img)   
     arquivoimg = os.path.join(path, 'Imagens/'+ mat.imagem)
     return send_file(arquivoimg, mimetype='image/gif')
 
@@ -93,6 +88,7 @@ def listar_material():
 def listar_comentarios(id_material):
     Lista_mat.clear()
     Lista_mat.append(id_material)
+    print(Lista_mat)
     if Lista_mat!="" and Lista_mat!=None:
         resposta = jsonify({"mensagem":"ok", "resultado":"Foi"})
     else:
@@ -140,23 +136,20 @@ def incluir_Comentario():
     resposta_com.headers.add("Access-Control-Allow-Origin", "*")
     return resposta_com  # responder!
 
-@app.route("/cont_del/<int:id_comen>", methods=["DELETE"]) 
-def cont_del(id_comen):
-    resposta = jsonify({"resultado": "ok", "detalhes": "ok"})
-    valor=np[0]#recebe a id do usuario logado
-    delD=comentarios.query.filter_by(idcomentario=id_comen).first()#busca no banco de dados o que voce deseja excluir
+@app.route("/cont_del/<int:id_mat>", methods=["DELETE"]) 
+def cont_del(id_mat):
+    Lista_mat.clear()
     try:
-        if delD.user==valor:
-            comentarios.query.filter(comentarios.idcomentario == id_comen).delete() # excluir a pessoa do ID informado
-            # confirmar a exclusão
-            db.session.commit()
-        else:
-            resposta = jsonify({"resultado": "erro", "detalhes": "Voce não pode apagar um comentario que não é seu"})
+        resposta = jsonify({"resultado": "ok", "detalhes": "ok"})
+        comentarios.query.filter(comentarios.material == id_mat).delete() # excluir a pessoa do ID informado
+        materiais.query.filter(materiais.idmateriais == id_mat).delete() # excluir a pessoa do ID informado
+        db.session.commit()
     except Exception as e:
         # informar mensagem de erro
         resposta = jsonify({"resultado":"erro", "detalhes":str(e)})
         # adicionar cabeçalho de liberação de origem
     resposta.headers.add("Access-Control-Allow-Origin", "*")
     return resposta # responder!
+
 
 app.run(debug = True)

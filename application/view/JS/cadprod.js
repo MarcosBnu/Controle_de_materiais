@@ -40,8 +40,8 @@ $(function () { // quando o documento estiver pronto/carregado
         function incluir_livro (retorno) {
             if (retorno.resultado == "ok") { // a operação deu certo?
                 // informar resultado de sucesso
-                alert("Produto cadastrado com sucesso!");
-                location.reload();//recarrega a pagina
+                alert("Sucesso");
+                window.location.href = 'material.html';//recarrega a pagina
                 // limpar os campos
                 $("#campoNome").val();
                 $("#campoImg").val()

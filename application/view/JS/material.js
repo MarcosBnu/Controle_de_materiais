@@ -26,6 +26,7 @@ $(function() { // quando o documento estiver pronto/carregado
                         '<p class="card-text"><small class="text-muted">cadastrado no dia: ' + mat[i].data +'</small></p>'+
                         '<br>'+
                         '<a href="#" class="listar_comentarios" id="editar_' + mat[i].idmateriais +'"><img src="../../imagens/comentario.png" alt="..."></a>'+
+                        '<a href="#" class="deletar_comentario" id="deletar_' + mat[i].idmateriais +'"><img src="../../imagens/deletar.png" alt="..."></a>'+
                     '</div>'+
                     '</div>'+
                 '</div>'+
@@ -37,6 +38,33 @@ $(function() { // quando o documento estiver pronto/carregado
     }
 
 });
+
+$(function() { // quando o documento estiver pronto/carregado
+    $(document).on("click", ".deletar_comentario", function() {
+        // obter o ID do ícone que foi clicado
+        var componente_clicado = $(this).attr('id'); 
+        // no id do ícone
+        var nome_icone = "deletar_";
+        var id_mat = componente_clicado.substring(nome_icone.length);
+        alert(id_mat)
+        // solicitar a edição da despesa
+        $.ajax({
+            url: 'http://localhost:5000/cont_del/'+id_mat,
+            type: 'DELETE', // método da requisição
+            dataType: 'json', // os dados são recebidos no formato json
+            success: pessoasalva, // chama a função pessoasalva para processar o resultado
+            error: erroAosalvar
+        });
+        function pessoasalva (retorno) {
+            location.reload();//recarrega a pagina
+        }
+        function erroAosalvar (retorno) {
+            // informar mensagem de erro
+            alert("erro");
+        }
+    });
+});
+
 $(function() { // quando o documento estiver pronto/carregado
     $(document).on("click", ".listar_comentarios", function() {
         // obter o ID do ícone que foi clicado

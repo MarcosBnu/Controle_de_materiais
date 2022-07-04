@@ -20,6 +20,8 @@ $(function() { // quando o documento estiver pronto/carregado
         while(l){
             n=0
             if(somador_aux){
+                alert("tuts")
+                somador_aux = false
                 for (var i in con){
                     n=n+1
                     if (con[i].idcomentario!="")
@@ -27,10 +29,12 @@ $(function() { // quando o documento estiver pronto/carregado
                         somador_aux = false
                 }
             }
+            else {
+                l=false
+            }
             for (var i in con) { //i vale a posição no vetor
                 if (con[i].idcomentario==aux){
                     t=t+1
-                    lixo=con[i].idcomentario
                     con[i].idcomentario=""
                     somador_aux = true
                     lin=
@@ -41,8 +45,6 @@ $(function() { // quando o documento estiver pronto/carregado
                                 '<h5 class="card-title">' + con[i].usuario +':</h5>'+
                                 '<p class="card-text">' + con[i].comentario +'</p>'+
                                 '<p class="card-text"><small class="text-muted">cadastrado no dia: ' + con[i].data +'</small></p>'+
-                                '<br>'+
-                                '<a href="#" class="deletar_comentario" id="deletar_' + lixo +'"><img src="../../imagens/deletar.png" alt="..."></a>'+
                             '</div>'+
                             '</div>'+
                         '</div>'+
@@ -74,7 +76,6 @@ $(function() { // quando o documento estiver pronto/carregado
             error: erroAosalvar
         });
         function pessoasalva (retorno) {
-            alert(retorno.detalhes)
             location.reload();//recarrega a pagina
         }
         function erroAosalvar (retorno) {
@@ -83,15 +84,6 @@ $(function() { // quando o documento estiver pronto/carregado
         }
     });
 });
-
-
-$(function() { // quando o documento estiver pronto/carregado
-    // percorrer a lista de mat retornadas;
-    lin='<img src="http://localhost:5000/get_cont" class="img-fluid rounded-start" style="max-width: 550px; margin-left:20%; margin-right:20%; margin-top:3%; border-radius:15%"; alt="...">';
-    $('#listarimg').append(lin);
-}
-);
-
 
 
 $(function () { // quando o documento estiver pronto/carregado

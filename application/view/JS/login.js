@@ -21,7 +21,6 @@ $(function () { // quando o documento estiver pronto/carregado
                 // redireciona a guia
                 window.location.href = 'material.html';
                 // limpar os campos
-                alert(retorno.resultado + ":" + retorno.detalhes);
                 $("#campoVid").val();
                 $("#campoVSenha").val();
             } else {
