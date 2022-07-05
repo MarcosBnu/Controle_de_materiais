@@ -19,6 +19,7 @@ $(function() { // quando o documento estiver pronto/carregado
         somador_aux = true  
         while(l){
             n=0
+            alert(con)
             if(somador_aux){
                 somador_aux = false
                 for (var i in con){

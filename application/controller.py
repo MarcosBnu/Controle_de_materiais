@@ -69,7 +69,7 @@ def get_image(id_img):
         id_img=Lista_mat[0]
     mat = db.session.query(materiais).get(id_img)   
     arquivoimg = os.path.join(path, 'Imagens/'+ mat.imagem)
-    return send_file(arquivoimg, mimetype='image/gif')
+    return send_file(arquivoimg, mimetype='image/gif', cache_timeout=0)
 
 @app.route("/listar_material")
 def listar_material():
