@@ -37,7 +37,7 @@ def incluir_produto():
     resposta_cad = jsonify({"resultado": "ok", "detalhes": "ok"})
     # receber as informações da nova pessoa
     Cadados = request.get_json()  # (force=True) dispensa Content-Type na requisição
-    data=datetime.date.today()
+    data=datetime.datetime.now()
     Cadados["data"]=data
     try:  # tentar executar a operação
         # Biblioteca(ISBN="123", Capa_do_livro="livro de python", Nome_do_livro="Python turbinado", Autor="Jack John", Paginas=400, Editoras = "várias")
@@ -121,7 +121,7 @@ def incluir_Comentario():
     resposta_com = jsonify({"resultado": "ok", "detalhes": "ok"})
     # receber as informações
     Cadados = request.get_json() 
-    data=datetime.date.today()
+    data=datetime.datetime.now()
     Cadados["data"]=data
     Cadados["material"]=Lista_mat[0]
     Cadados["user"]=np[0]

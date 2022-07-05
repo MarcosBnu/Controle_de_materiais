@@ -13,30 +13,41 @@ $(function() { // quando o documento estiver pronto/carregado
     function listar (con) {
         // percorrer a lista de con retornadas;
         l=true
-        aux=0
         n=0
         t=0
-        somador_aux = true  
+        var datas = []
+        r_aux=true
         while(l){
             n=0
-            alert(con)
-            if(somador_aux){
-                somador_aux = false
+            if(r_aux){
                 for (var i in con){
                     n=n+1
-                    if (con[i].idcomentario!="")
-                        aux=con[i].idcomentario
-                        somador_aux = false
+                    xxn=con[i].data
+                    xxn.substr(0,23)
+                    xxn=xxn.replace("-","000000000000000")
+                    xxn=xxn.replace("-","000000000000000")
+                    xxn=xxn.replace(" ","111111111111111")
+                    xxn=xxn.replace(":","222222222222222")
+                    xxn=xxn.replace(":","222222222222222")
+                    xxn=xxn.replace(".","333333333333333")
+                    datas.push(xxn)
+                    datas.sort()
+                    r_aux=false
                 }
             }
-            else {
-                l=false
-            }
+            dodo=datas.at(-1)
             for (var i in con) { //i vale a posição no vetor
-                if (con[i].idcomentario==aux){
+                dodo=dodo.replace("000000000000000","-")
+                dodo=dodo.replace("000000000000000","-")
+                dodo=dodo.replace("111111111111111"," ")
+                dodo=dodo.replace("222222222222222",":")
+                dodo=dodo.replace("222222222222222",":")
+                dodo=dodo.replace("333333333333333",".")
+                decisor=con[i].data
+                decisor.substr(0,23)
+                if (decisor==dodo){
                     t=t+1
-                    con[i].idcomentario=""
-                    somador_aux = true
+                    datas.pop()
                     lin=
                     '<div class="card mb-3" style="margin-left:20%; margin-right:20%; margin-top:1%; max-width: 50rem;">'+
                         '<div class="row g-0">'+
@@ -55,6 +66,9 @@ $(function() { // quando o documento estiver pronto/carregado
                     }
             }
         }
+        if (n==t){
+            l=false
+        }
         }
 }});
 
@@ -66,7 +80,6 @@ $(function() { // quando o documento estiver pronto/carregado
         // no id do ícone
         var nome_icone = "deletar_";
         var id_comen = componente_clicado.substring(nome_icone.length);
-        alert(id_comen)
         // solicitar a edição da despesa
         $.ajax({
             url: 'http://localhost:5000/cont_del/'+id_comen,
