@@ -50,5 +50,5 @@
   <li> python run_app.py</li>
 </ol>
 <hr>
-<p> Inicialmente instale o Python, feito isso abra o promp e entre no repositorio do projeto, use o comando "pip install -r requirements.TXT", após a instação das bibliotecas citadas, abra o arquivo html index.html, ele esta dentro de application/view/HTML, feito isso abra o arquivo run_app.py, espere alguns segundos e mantenha esse arquivo aberto.</p>
+<p>Inicialmente instale o Python, feito isso abra o prompt e entre no repositório do projeto, use o comando "pip install -r requirements.TXT", após a instalação das bibliotecas citadas, abra o arquivo html index.html, ele está dentro de application/view/HTML, feito isso abra o arquivo run_app.py, espere alguns segundos e mantenha esse arquivo aberto.</p>
 <hr>
