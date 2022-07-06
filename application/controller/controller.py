@@ -57,7 +57,7 @@ def salvar_imagem():
     if request.method == 'POST':
         file_val = request.files['capa']
         print("vou salvar em: "+file_val.filename)
-        arquivoimg = os.path.join(path, 'imagens/'+file_val.filename)
+        arquivoimg = os.path.join(path, '../Imagens/'+file_val.filename)
         file_val.save(arquivoimg)
         r = jsonify({"mensagem":"ok", "arquivo": file_val.filename})
     r.headers.add("Access-Control-Allow-Origin", "*")
@@ -68,7 +68,7 @@ def get_image(id_img):
     if id_img==9999999999999:
         id_img=Lista_mat[0]
     mat = db.session.query(materiais).get(id_img)   
-    arquivoimg = os.path.join(path, 'Imagens/'+ mat.imagem)
+    arquivoimg = os.path.join(path, '../Imagens/'+ mat.imagem)
     return send_file(arquivoimg, mimetype='image/gif', cache_timeout=0)
 
 @app.route("/listar_material")
@@ -152,4 +152,3 @@ def cont_del(id_mat):
     return resposta # responder!
 
 
-app.run(debug = True)
