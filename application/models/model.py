@@ -29,7 +29,7 @@ class usuario (db.Model, UserMixin):#cria a tabela usuario
     #cria as colunas
     id = db.Column(db.Integer, primary_key=True)#chave primaria
     nome_usuario=db.Column(db.String(200), nullable=False)
-    senha= db.Column(db.String(20), unique=True, nullable=False)
+    senha= db.Column(db.String(20), nullable=False)
     #nullable significa que o campo não pode ser nulo
     def __str__(self):
         return f'{str(self.id)},{self.nome_usuario}, {self.senha}'
@@ -89,6 +89,7 @@ class comentarios(db.Model):#cria a tabela comentarios
             "data" : self.data,
             #retorna em join as informaçoes
         }
+#função para colocar no banco de dados as informaçoes necessarias
 def teste():
     
     
@@ -105,13 +106,13 @@ def teste():
     Mt4 =materiais(materiais_nome="All-in-One Media Keyboard", imagem="Teclado_Microsoft.png", descricao="O All-in-One Media Keyboard é o dispositivo ideal para sua sala ou home office. Com teclado em tamanho natural e trackpad multitoque integrado, é possível digitar, passar o dedo, arrastar, fazer zoom e clicar facilmente. O teclado com teclas de atalho de mídia personalizáveis permite que a Web e suas músicas, fotos e filmes favoritos estejam a seu alcance. O teclado também tem um design resistente, portanto, não é necessário se preocupar com esbarrões, quedas ou derramamentos comuns. O All-in-One Media Keyboard é tudo o que você precisa para digitar confortavelmente e navegar sem esforço.", ativo=0, data="2021-11-11 17:54:00.04")
     Con1 =comentarios(comentario="Deverá fazer o download do aplicativo da razer para alterar a cor do mouse.", material="2", user="4", data="2021-11-07 18:00:00.000")
     Con2 =comentarios(comentario="Problema de aquecimento no processador após 1 ano de uso.", material="2", user="2", data="2021-11-04 07:30:00.000")
-    db.session.add_all([Us1, Us2, Us3, Us4, Mt1, Mt2, Mt3, Mt4, Con1, Con2])
-    db.session.commit()       
+    db.session.add_all([Us1, Us2, Us3, Us4, Mt1, Mt2, Mt3, Mt4, Con1, Con2])#adiciona as infomaçoes no banco de dados
+    db.session.commit() #confimar a operação   
 if __name__=="__main__":#testa as classes
     if os.path.exists(arquivobd):
         os.remove(arquivobd)#remove o banco de dados se existir
         print("foi")
     db.create_all()#cria o banco de dados
-    teste()
+    teste()#chama a função teste
     
 

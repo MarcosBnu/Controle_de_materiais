@@ -1,19 +1,17 @@
 $(function () { // quando o documento estiver pronto/carregado
-    // código para mapear click do botão incluir pessoa
+    // código para mapear click do botão incluir produto
     $(document).on("click", "#btIncluirProduto", function () {
         var form_data = new FormData($('#meuform')[0]);
 
         $.ajax({
             url: 'http://localhost:5000/salvar_imagem',
             type: 'POST',
-            //dataType: 'json',
             data: form_data,
             contentType: false,
             cache: false,
             processData: false,
             success: function(data) {
-                console.log('Success!');
-                alert("Imagem salva");
+                alert("Imagem salva");//informa se a mensagem foi salva
             },
             error: function(data) {
                 alert(data);
@@ -40,11 +38,11 @@ $(function () { // quando o documento estiver pronto/carregado
         function incluir_livro (retorno) {
             if (retorno.resultado == "ok") { // a operação deu certo?
                 // informar resultado de sucesso
-                alert("Sucesso");
+                alert("Cadastrado");
                 location.reload();//recarrega a pagina
                 // limpar os campos
                 $("#campoNome").val();
-                $("#campoImg").val()
+                $("#campoImg").val();
                 $("#campoDes").val();
                 $("#campoStatus").val();
             } else {

@@ -5,11 +5,12 @@ from flask_login import login_user, current_user
 from models.model import *
 import datetime
 import os
+#importa as bibliotecas
 
 
 path = os.path.dirname(os.path.abspath(__file__))
-np=[]
-Lista_mat=[]
+np=[] #Lista para guardar o id do usuario quando logado
+Lista_mat=[] #Lista para guardar o id do material quando solicitado
 
 @app.route("/login_usuario", methods=["GET", "POST"])
 def login_usuario():#função para o usuario logar
@@ -21,7 +22,7 @@ def login_usuario():#função para o usuario logar
     if userlogin:
         login_user(userlogin, remember=True)
         if userlogin.is_authenticated==True:#se o login foi feito
-            np.append(current_user.id)#coloca na lista o valor da id do usuario, valor necessario para rodar as outras rotas
+            np.append(current_user.id)#coloca na lista o valor da id do usuario, valor necessario para operar as outras rotas
             resposta=jsonify({"resultado":"ok", "detalhes":np})#mensagem de Ok
         else:
             resposta=jsonify({"resultado":"erro", "detalhes":"erro"})#informa a mensagem de erro
@@ -36,11 +37,10 @@ def incluir_produto():
     # preparar uma resposta otimista
     resposta_cad = jsonify({"resultado": "ok", "detalhes": "ok"})
     # receber as informações da nova pessoa
-    Cadados = request.get_json()  # (force=True) dispensa Content-Type na requisição
-    data=datetime.datetime.now()
+    Cadados = request.get_json() 
+    data=datetime.datetime.now()#recebe a data e a hora atual
     Cadados["data"]=data
     try:  # tentar executar a operação
-        # Biblioteca(ISBN="123", Capa_do_livro="livro de python", Nome_do_livro="Python turbinado", Autor="Jack John", Paginas=400, Editoras = "várias")
         novaCad = materiais(**Cadados)  # criar a nova pessoa
         db.session.add(novaCad)  # adicionar no BD
         db.session.commit()  # efetivar a operação de gravação
@@ -50,7 +50,7 @@ def incluir_produto():
     # adicionar cabeçalho de liberação de origem
     resposta_cad.headers.add("Access-Control-Allow-Origin", "*")
     return resposta_cad  # responder!
-
+#Rota para salvar a imagem
 @app.route("/salvar_imagem", methods=['POST'])
 def salvar_imagem():
     r = jsonify({"mensagem":"tentando..."})
@@ -62,7 +62,7 @@ def salvar_imagem():
         r = jsonify({"mensagem":"ok", "arquivo": file_val.filename})
     r.headers.add("Access-Control-Allow-Origin", "*")
     return r
-
+#rota para buscar a imagem salva
 @app.route('/get_image/<int:id_img>')
 def get_image(id_img):
     if id_img==9999999999999:
@@ -86,10 +86,9 @@ def listar_material():
 
 @app.route("/listar_comentarios/<int:id_material>", methods=["GET", "POST"]) 
 def listar_comentarios(id_material):
-    Lista_mat.clear()
-    Lista_mat.append(id_material)
-    print(Lista_mat)
-    if Lista_mat!="" and Lista_mat!=None:
+    Lista_mat.clear()#limpa a lisa de material, para evitar erros
+    Lista_mat.append(id_material)#adiciona a id do material solicitado na lsta
+    if Lista_mat!="" and Lista_mat!=None:#Para verificar se a lista não ficou vazia
         resposta = jsonify({"mensagem":"ok", "resultado":"Foi"})
     else:
         resposta = jsonify({"mensagem":"erro", "resultado":"erro"})
@@ -99,7 +98,6 @@ def listar_comentarios(id_material):
 
 @app.route("/listar_com")
 def listar_com():
-    # obter as material do cadastro
     valor=Lista_mat[0]
     com = db.session.query(comentarios).filter_by(material=valor).all()
     # aplicar o método json que a classe material possui a cada elemento da lista
@@ -108,6 +106,7 @@ def listar_com():
         nomes = db.session.query(usuario).filter_by(id=i['usuario']).all()
         nomes_em_json = [ x.json() for x in nomes]
         for j in nomes_em_json:
+            #troca o id do usuario pelo seu nome, para operar a listagem
             i['usuario']=j['nome_usuario']
     # converter a lista do python para json
     res = jsonify(comentarios_em_json)
@@ -126,7 +125,7 @@ def incluir_Comentario():
     Cadados["material"]=Lista_mat[0]
     Cadados["user"]=np[0]
     try:  # tentar executar a operação
-        novaCad = comentarios(**Cadados)  # criar a nova pessoa
+        novaCad = comentarios(**Cadados)  # criar o novo comentario
         db.session.add(novaCad)  # adicionar no BD
         db.session.commit()  # efetivar a operação de gravação
     except Exception as e:  # em caso de erro...
@@ -136,13 +135,14 @@ def incluir_Comentario():
     resposta_com.headers.add("Access-Control-Allow-Origin", "*")
     return resposta_com  # responder!
 
+#rota para apagar o material, recebe o id do material 
 @app.route("/cont_del/<int:id_mat>", methods=["DELETE"]) 
 def cont_del(id_mat):
-    Lista_mat.clear()
+    Lista_mat.clear()#limpa a lista para evitar erros
     try:
         resposta = jsonify({"resultado": "ok", "detalhes": "ok"})
-        comentarios.query.filter(comentarios.material == id_mat).delete() # excluir a pessoa do ID informado
-        materiais.query.filter(materiais.idmateriais == id_mat).delete() # excluir a pessoa do ID informado
+        comentarios.query.filter(comentarios.material == id_mat).delete() # excluir os comentario do ID informado
+        materiais.query.filter(materiais.idmateriais == id_mat).delete() # excluir o material do ID informado
         db.session.commit()
     except Exception as e:
         # informar mensagem de erro

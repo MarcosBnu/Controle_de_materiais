@@ -11,7 +11,7 @@ $(function() { // quando o documento estiver pronto/carregado
     });
 
     function listar (con) {
-        // percorrer a lista de con retornadas;
+        // Desenvolvi toda essa função para order a lista pelas datas
         l=true
         n=0
         t=0
@@ -24,12 +24,12 @@ $(function() { // quando o documento estiver pronto/carregado
                     n=n+1
                     xxn=con[i].data
                     xxn.substr(0,23)
-                    xxn=xxn.replace("-","000000000000000")
-                    xxn=xxn.replace("-","000000000000000")
-                    xxn=xxn.replace(" ","111111111111111")
-                    xxn=xxn.replace(":","222222222222222")
-                    xxn=xxn.replace(":","222222222222222")
-                    xxn=xxn.replace(".","333333333333333")
+                    xxn=xxn.replace("-","900000000000009")
+                    xxn=xxn.replace("-","900000000000009")
+                    xxn=xxn.replace(" ","911111111111119")
+                    xxn=xxn.replace(":","922222222222229")
+                    xxn=xxn.replace(":","922222222222229")
+                    xxn=xxn.replace(".","933333333333339")
                     datas.push(xxn)
                     datas.sort()
                     r_aux=false
@@ -37,14 +37,14 @@ $(function() { // quando o documento estiver pronto/carregado
             }
             dodo=datas.at(-1)
             for (var i in con) { //i vale a posição no vetor
-                dodo=dodo.replace("000000000000000","-")
-                dodo=dodo.replace("000000000000000","-")
-                dodo=dodo.replace("111111111111111"," ")
-                dodo=dodo.replace("222222222222222",":")
-                dodo=dodo.replace("222222222222222",":")
-                dodo=dodo.replace("333333333333333",".")
+                dodo=dodo.replace("900000000000009","-")
+                dodo=dodo.replace("900000000000009","-")
+                dodo=dodo.replace("911111111111119"," ")
+                dodo=dodo.replace("922222222222229",":")
+                dodo=dodo.replace("922222222222229",":")
+                dodo=dodo.replace("933333333333339",".")
+                //manipulei as stings para ordenalas na lista, depois coloquei de novo os pontos e caracteres para comparar a lsita com o json
                 decisor=con[i].data
-                decisor.substr(0,23)
                 if (decisor==dodo){
                     t=t+1
                     datas.pop()
@@ -55,7 +55,7 @@ $(function() { // quando o documento estiver pronto/carregado
                             '<div class="card-body">'+
                                 '<h5 class="card-title">' + con[i].usuario +':</h5>'+
                                 '<p class="card-text">' + con[i].comentario +'</p>'+
-                                '<p class="card-text"><small class="text-muted">cadastrado no dia: ' + con[i].data +'</small></p>'+
+                                '<p class="card-text"><small class="text-muted">cadastrado no dia: ' + decisor +'</small></p>'+
                             '</div>'+
                             '</div>'+
                         '</div>'+
@@ -80,7 +80,7 @@ $(function() { // quando o documento estiver pronto/carregado
         // no id do ícone
         var nome_icone = "deletar_";
         var id_comen = componente_clicado.substring(nome_icone.length);
-        // solicitar a edição da despesa
+        // solicitar a exclusao do material
         $.ajax({
             url: 'http://localhost:5000/cont_del/'+id_comen,
             type: 'DELETE', // método da requisição
@@ -100,7 +100,7 @@ $(function() { // quando o documento estiver pronto/carregado
 
 
 $(function () { // quando o documento estiver pronto/carregado
-    // código para mapear click do botão incluir pessoa
+    // código para mapear click do botão incluir comentario
     $(document).on("click", "#btIncluirComentarios", function () {
         //pegar dados da tela
         comentario = $("#textCom").val();
@@ -122,7 +122,7 @@ $(function () { // quando o documento estiver pronto/carregado
         function incluir_livro (retorno) {
             if (retorno.resultado == "ok") { // a operação deu certo?
                 // informar resultado de sucesso
-                alert("Comentario cadastrado com sucesso!");
+                alert("Sucesso! Comentário cadastrado para o material.");
                 window.location.href = 'material.html';//redireciona a pagina
                 // limpar os campos
                 $("#textCom").val();

@@ -1,5 +1,5 @@
 $(function () { // quando o documento estiver pronto/carregado
-    // código para mapear click do botão incluir pessoa
+    // código para mapear click do botão de login
     $(document).on("click", "#btLoginusuario", function () {
         //pegar dados da tela
         Vid = $("#campoVid").val();

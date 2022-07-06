@@ -31,7 +31,7 @@ $(function() { // quando o documento estiver pronto/carregado
                     '</div>'+
                 '</div>'+
             '</div>';
-            // adiciona a linha no corpo da tabela
+            // adiciona a linha no corpo da tabela se for ativo
             if (mat[i].ativo== 0 || mat[i].ativo== "0")
              $('#listarmat').append(lin);
         }
@@ -46,7 +46,7 @@ $(function() { // quando o documento estiver pronto/carregado
         // no id do ícone
         var nome_icone = "deletar_";
         var id_mat = componente_clicado.substring(nome_icone.length);
-        // solicitar a edição da despesa
+        // solicitar a exclusao da despesa
         $.ajax({
             url: 'http://localhost:5000/cont_del/'+id_mat,
             type: 'DELETE', // método da requisição
