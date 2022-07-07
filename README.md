@@ -6,7 +6,7 @@
 
 + <h4>📌 Front-end:</h4>  HTML, JavaScript, CSS, bootstrap.
 + <h4>📌 Back-end:</h4>   Python 3.8.10
-+ <h4>📌 Biblioteca do Python:</h4> flask 2.0.2, flask-sqlalchemy 2.5.1, Flask-Cors 3.0.10, Flask-Login 0.5.0
++ <h4>📌 Biblioteca do Python:</h4> Flask 2.0.2, Flask-sqlalchemy 2.5.1, Flask-Cors 3.0.10, Flask-Login 0.5.0
 + <h4>📌 IDE:</h4>  Visual Studio Code
 
 <h2>Implementações</h2>
