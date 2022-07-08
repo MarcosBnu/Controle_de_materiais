@@ -52,3 +52,6 @@
 <hr>
 <p>Inicialmente instale o Python, feito isso abra o prompt e entre no repositório do projeto, use o comando "pip install -r requirements.TXT", após a instalação das bibliotecas citadas, abra o arquivo html index.html, ele está dentro de application/view/HTML, feito isso abra o arquivo run_app.py, espere alguns segundos e mantenha esse arquivo aberto.</p>
 <hr>
+
+<h2>📁 Estrutura das Pastas</h2>
+<p>Na pasta model você irá encontrar os arquivos referente ao banco de dados, na pasta controller você irá encontrar o arquivo com as rotas para execução do sistema, na pasta view você irá encontrar arquivos CSS, JS e Html referente a parte visual do sistema.</p>
